@@ -1,70 +1,194 @@
-# Getting Started with Create React App
+# Aegis 風險資料庫
+## Risk Intelligence Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aegis風險資料庫是一個先進的風險評估和背景調查平台，透過整合多個開放資料集，提供全面的風險分析和可視化服務。
 
-## Available Scripts
+## 🌟 主要功能
 
-In the project directory, you can run:
+### 🔍 智能查詢系統
+- **自然語言查詢**：支援中文自然語言問題輸入
+- **範例引導**：提供多種查詢範例，引導使用者有效使用系統
+- **即時搜尋**：快速搜尋並分析相關風險資訊
 
-### `npm start`
+### 📊 動態圖形網絡
+- **力導向圖**：使用D3.js創建互動式網絡圖形
+- **多類型節點**：支援人物、案件、罪名、企業等不同類型節點
+- **關聯分析**：自動顯示實體間的關聯關係
+- **互動操作**：支援拖拽、縮放、懸停查看詳情
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🎯 RAG風險分析
+- **多源整合**：整合法院判決書、金融監理、企業登記等資料源
+- **風險評估**：自動評估並分類風險等級（高/中/低）
+- **詳細報告**：提供每個資料源的查詢結果和建議
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 💫 現代化界面
+- **深色主題**：專業的深色系設計風格
+- **響應式設計**：支援桌面和移動設備
+- **浮動面板**：可最小化/展開的查詢結果面板
 
-### `npm test`
+## 🚀 技術架構
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 前端技術棧
+- **React 18**：現代化React框架
+- **D3.js**：強大的資料可視化庫
+- **Styled Components**：CSS-in-JS樣式解決方案
+- **力導向圖布局**：自動節點布局算法
 
-### `npm run build`
+### 設計特色
+- **深色主題配色**：`#1a1a2e` 主色調
+- **漸變效果**：`linear-gradient(135deg, #667eea 0%, #764ba2 100%)`
+- **平滑動畫**：CSS3過渡和D3.js動畫效果
+- **現代化圖標**：自訂圖標系統
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📋 系統架構
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── components/
+│   ├── Header.js              # 頂部導航組件
+│   ├── QueryInterface.js      # 查詢介面組件
+│   ├── GraphNetwork.js        # 圖形網絡組件
+│   └── FloatingQueryPanel.js  # 浮動結果面板
+├── App.js                     # 主應用程序
+├── App.css                    # 全域樣式
+└── index.js                   # 應用入口點
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🎨 設計參考
 
-### `npm run eject`
+設計靈感來自您提供的專業網絡圖形介面，具有以下特色：
+- 深色背景與彩色節點的對比
+- 清晰的連線和標籤
+- 右側資訊面板
+- 專業的數據可視化風格
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🔧 安裝與運行
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 環境要求
+- Node.js 14.0+
+- npm 6.0+
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 安裝步驟
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **克隆項目**
+```bash
+git clone <repository-url>
+cd aegis-risk-database
+```
 
-## Learn More
+2. **安裝依賴**
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **啟動開發服務器**
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **瀏覽器訪問**
+```
+http://localhost:3000
+```
 
-### Code Splitting
+### 可用腳本
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `npm start` - 啟動開發服務器
+- `npm run build` - 建置生產版本
+- `npm test` - 運行測試
+- `npm run eject` - 彈出配置（不可逆）
 
-### Analyzing the Bundle Size
+## 📝 使用說明
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 基本操作
 
-### Making a Progressive Web App
+1. **發起查詢**
+   - 在主頁面輸入自然語言查詢問題
+   - 點擊範例問題快速開始
+   - 等待系統分析並生成報告
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. **圖形互動**
+   - 拖拽節點調整位置
+   - 滾輪縮放圖形視圖
+   - 懸停節點查看詳細資訊
+   - 點擊節點選擇/取消選擇
 
-### Advanced Configuration
+3. **查看結果**
+   - 右側浮動面板顯示分析結果
+   - 可最小化/展開面板
+   - 查看各資料源的查詢結果
+   - 了解風險等級評估
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 查詢範例
 
-### Deployment
+- `"請幫我確認網紅張小華是否有犯過金融詐欺相關案件？"`
+- `"ABC投資公司的負責人是否有相關的法律紀錄？"`
+- `"王小明和李大華之間是否有商業往來或共同投資關係？"`
+- `"陳曉偉先生是否曾在越南犯下詐欺相關罪行？"`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔮 資料來源
 
-### `npm run build` fails to minify
+目前系統模擬整合以下資料源：
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **法院判決書系統** - 法院案件和判決資訊
+2. **金融監理機關** - 金融詐欺警示名單
+3. **企業登記資料** - 公司登記和負責人資訊
+4. **國際制裁名單** - 國際制裁和黑名單
+5. **新聞媒體報導** - 相關新聞和媒體報導
+
+## 🎯 圖形元素說明
+
+### 節點類型
+- 🔴 **目標人物** (`#ff6b6b`) - 查詢的中心人物
+- 🟠 **法院案件** (`#ff9999`) - 相關法院案件
+- 🟡 **罪名** (`#ffcc99`) - 具體罪名
+- 🔵 **家庭成員** (`#99ccff`) - 家族關係
+- 🟣 **關聯人物** (`#cc99ff`) - 相關人員
+- 🟢 **相關企業** (`#99ff99`) - 企業實體
+
+### 連線關係
+- **涉嫌** - 人物與案件間的關係
+- **判決** - 案件與罪名間的關係
+- **親屬** - 家庭成員關係
+- **共犯** - 共同犯罪關係
+- **負責人** - 企業管理關係
+
+## 📊 風險評估
+
+系統提供三級風險評估：
+
+- 🔴 **高風險** - 發現多項相關紀錄，建議謹慎評估
+- 🟠 **中等風險** - 發現部分相關紀錄，需要進一步調查
+- 🟢 **低風險** - 未發現顯著風險因素
+
+## 🔄 未來規劃
+
+### 短期目標
+- [ ] 接入真實資料庫API
+- [ ] 增加更多查詢範例
+- [ ] 優化圖形性能
+- [ ] 添加匯出功能
+
+### 長期目標
+- [ ] 支援多語言界面
+- [ ] AI增強的關聯分析
+- [ ] 實時資料更新
+- [ ] 高級篩選和搜尋功能
+
+## 🤝 貢獻指南
+
+歡迎提交Issue和Pull Request來幫助改進這個項目！
+
+## 📄 授權條款
+
+MIT License - 詳見 [LICENSE](LICENSE) 文件
+
+## 📞 聯絡方式
+
+如有任何問題或建議，請通過以下方式聯絡：
+- GitHub Issues
+- 電子郵件：[your-email@example.com]
+
+---
+
+*Aegis風險資料庫 - 專業的風險智能分析平台* 🛡️
