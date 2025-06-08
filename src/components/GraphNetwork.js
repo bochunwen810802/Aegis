@@ -74,12 +74,12 @@ const TooltipContainer = styled.div`
 `;
 
 const nodeColors = {
-  person: '#ff6b6b',
-  case: '#ff9999',
-  crime: '#ffcc99',
-  family: '#99ccff',
-  associate: '#cc99ff',
-  company: '#99ff99'
+  person: '#A95565',      // 淺藍色 - 主要目標人物
+  case: '#4E8677',        // 深綠色 - 法院案件  
+  crime: '#B1F7FC',       // 玫瑰色 - 罪名
+  family: '#8271B0',      // 紫色 - 家庭成員
+  associate: '#8271B0',   // 紫色 - 關聯人物 (與家庭成員同色)
+  company: '#BB870C'      // 金棕色 - 相關企業
 };
 
 const legendItems = [
@@ -120,33 +120,33 @@ function GraphNetwork({ data }) {
 
     // 創建力模擬
     const simulation = d3.forceSimulation(data.nodes)
-      .force("link", d3.forceLink(data.links).id(d => d.id).distance(100))
-      .force("charge", d3.forceManyBody().strength(-800))
+      .force("link", d3.forceLink(data.links).id(d => d.id).distance(120))
+      .force("charge", d3.forceManyBody().strength(-1000))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("collision", d3.forceCollide().radius(d => d.size + 5));
+      .force("collision", d3.forceCollide().radius(d => d.size + 8));
 
     // 創建箭頭標記
     const defs = container.append("defs");
     defs.append("marker")
       .attr("id", "arrowhead")
       .attr("viewBox", "0 -5 10 10")
-      .attr("refX", 20)
+      .attr("refX", 18)
       .attr("refY", 0)
-      .attr("markerWidth", 6)
-      .attr("markerHeight", 6)
+      .attr("markerWidth", 5)
+      .attr("markerHeight", 5)
       .attr("orient", "auto")
       .append("path")
       .attr("d", "M0,-5L10,0L0,5")
-      .attr("fill", "#999");
+      .attr("fill", "#546E7A");
 
     // 創建連線
     const links = container.append("g")
       .selectAll("line")
       .data(data.links)
       .enter().append("line")
-      .attr("stroke", "#999")
-      .attr("stroke-width", 2)
-      .attr("stroke-opacity", 0.8)
+      .attr("stroke", "#546E7A")
+      .attr("stroke-width", 1.5)
+      .attr("stroke-opacity", 0.6)
       .attr("marker-end", "url(#arrowhead)");
 
     // 創建連線標籤
@@ -156,8 +156,9 @@ function GraphNetwork({ data }) {
       .enter().append("text")
       .attr("class", "link-label")
       .attr("font-size", "10px")
-      .attr("fill", "#ccc")
+      .attr("fill", "#90A4AE")
       .attr("text-anchor", "middle")
+      .attr("font-weight", "500")
       .text(d => d.relationship);
 
     // 創建節點
@@ -166,10 +167,11 @@ function GraphNetwork({ data }) {
       .data(data.nodes)
       .enter().append("circle")
       .attr("r", d => d.size)
-      .attr("fill", d => d.color || nodeColors[d.group] || '#666')
-      .attr("stroke", "#fff")
+      .attr("fill", d => d.color || nodeColors[d.group] || '#78909C')
+      .attr("stroke", "#263238")
       .attr("stroke-width", 2)
       .style("cursor", "pointer")
+      .style("filter", "drop-shadow(2px 2px 4px rgba(0,0,0,0.3))")
       .call(d3.drag()
         .on("start", dragStarted)
         .on("drag", dragged)
@@ -184,12 +186,14 @@ function GraphNetwork({ data }) {
       .data(data.nodes)
       .enter().append("text")
       .attr("class", "node-label")
-      .attr("font-size", "12px")
-      .attr("fill", "#fff")
+      .attr("font-size", "11px")
+      .attr("fill", "#ECEFF1")
       .attr("text-anchor", "middle")
       .attr("dy", "0.35em")
+      .attr("font-weight", "600")
       .style("pointer-events", "none")
       .style("user-select", "none")
+      .style("text-shadow", "1px 1px 2px rgba(0,0,0,0.8)")
       .text(d => d.id);
 
     // 更新位置
@@ -236,8 +240,18 @@ function GraphNetwork({ data }) {
       const tooltip = d3.select(tooltipRef.current);
       
       // 突出顯示相關節點和連線
-      nodes.style("opacity", n => n === d || isConnected(d, n) ? 1 : 0.3);
-      links.style("opacity", l => l.source === d || l.target === d ? 1 : 0.1);
+      nodes
+        .style("opacity", n => n === d || isConnected(d, n) ? 1 : 0.2)
+        .style("filter", n => n === d ? "drop-shadow(0 0 8px rgba(169, 85, 101, 0.8))" : 
+                           isConnected(d, n) ? "drop-shadow(2px 2px 4px rgba(0,0,0,0.3))" : 
+                           "drop-shadow(2px 2px 4px rgba(0,0,0,0.1))");
+      
+      links
+        .style("opacity", l => l.source === d || l.target === d ? 0.9 : 0.1)
+        .style("stroke", l => l.source === d || l.target === d ? "#A95565" : "#546E7A");
+      
+      linkLabels
+        .style("opacity", l => l.source === d || l.target === d ? 1 : 0.2);
       
       // 顯示工具提示
       tooltip
@@ -255,8 +269,16 @@ function GraphNetwork({ data }) {
       const tooltip = d3.select(tooltipRef.current);
       
       // 恢復所有節點和連線的透明度
-      nodes.style("opacity", 1);
-      links.style("opacity", 0.8);
+      nodes
+        .style("opacity", 1)
+        .style("filter", "drop-shadow(2px 2px 4px rgba(0,0,0,0.3))");
+      
+      links
+        .style("opacity", 0.6)
+        .style("stroke", "#546E7A");
+        
+      linkLabels
+        .style("opacity", 1);
       
       // 隱藏工具提示
       tooltip.style("opacity", 0);

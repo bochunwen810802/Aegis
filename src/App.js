@@ -147,24 +147,24 @@ function generateMockGraphData(query) {
   
   const nodes = [
     // 中心人物
-    { id: personName, group: 'person', size: 20, color: '#ff6b6b' },
+    { id: personName, group: 'person', size: 20, color: '#A95565' },
     
     // 法院案件
-    { id: '詐欺案件_2023', group: 'case', size: 15, color: '#ff9999' },
-    { id: '違反銀行法_2022', group: 'case', size: 15, color: '#ff9999' },
+    { id: '詐欺案件_2023', group: 'case', size: 15, color: '#4E8677' },
+    { id: '違反銀行法_2022', group: 'case', size: 15, color: '#4E8677' },
     
     // 罪名
-    { id: '詐欺罪', group: 'crime', size: 12, color: '#ffcc99' },
-    { id: '違反銀行法', group: 'crime', size: 12, color: '#ffcc99' },
+    { id: '詐欺罪', group: 'crime', size: 12, color: '#B1F7FC' },
+    { id: '違反銀行法', group: 'crime', size: 12, color: '#B1F7FC' },
     
     // 關聯人物
-    { id: `${personName.substring(0,1)}父親`, group: 'family', size: 14, color: '#99ccff' },
-    { id: `${personName.substring(0,1)}配偶`, group: 'family', size: 14, color: '#99ccff' },
-    { id: '共同被告王小明', group: 'associate', size: 13, color: '#cc99ff' },
+    { id: `${personName.substring(0,1)}父親`, group: 'family', size: 14, color: '#8271B0' },
+    { id: `${personName.substring(0,1)}配偶`, group: 'family', size: 14, color: '#8271B0' },
+    { id: '共同被告王小明', group: 'associate', size: 13, color: '#8271B0' },
     
     // 公司
-    { id: 'ABC投資公司', group: 'company', size: 16, color: '#99ff99' },
-    { id: 'XYZ科技公司', group: 'company', size: 16, color: '#99ff99' }
+    { id: 'ABC投資公司', group: 'company', size: 16, color: '#BB870C' },
+    { id: 'XYZ科技公司', group: 'company', size: 16, color: '#BB870C' }
   ];
 
   const links = [
