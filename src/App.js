@@ -6,22 +6,23 @@ import GraphNetwork from './components/GraphNetwork';
 import FloatingQueryPanel from './components/FloatingQueryPanel';
 import './App.css';
 
-// 深色主題配置
+// 深色主題配置 - 調整為更深的藍色系，添加漸層效果
 const darkTheme = {
-  primary: '#1a1a2e',
-  secondary: '#16213e',
-  accent: '#0f3460',
+  primary: 'linear-gradient(135deg, #0a0e1a 0%, #1a2332 50%, #0f1419 100%)',
+  secondary: 'linear-gradient(135deg, #1a2332 0%, #2c3e50 100%)',
+  accent: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
   text: '#ffffff',
-  textSecondary: '#b0b0b0',
-  success: '#4caf50',
-  warning: '#ff9800',
-  error: '#f44336',
-  border: '#333333',
-  gradient: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)'
+  textSecondary: '#b0b8c4',
+  success: '#27ae60',
+  warning: '#f39c12',
+  error: '#e74c3c',
+  border: '#34495e',
+  gradient: 'linear-gradient(135deg, #0a0e1a 0%, #1a2332 50%, #0f1419 100%)'
 };
 
 const AppContainer = styled.div`
   min-height: 100vh;
+  width: 100vw;
   background: ${props => props.theme.gradient};
   color: ${props => props.theme.text};
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,12 +32,19 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
 `;
 
 const ContentArea = styled.div`
   flex: 1;
   position: relative;
+  width: 100%;
+  min-height: 0;
   overflow: hidden;
+  
+  ${props => props.allowScroll && `
+    overflow: auto;
+  `}
 `;
 
 function App() {
@@ -73,7 +81,7 @@ function App() {
       <AppContainer>
         <MainContent>
           <Header onNewQuery={handleNewQuery} />
-          <ContentArea>
+          <ContentArea allowScroll={showQueryInterface}>
             {showQueryInterface ? (
               <QueryInterface onQuery={handleQuery} />
             ) : (

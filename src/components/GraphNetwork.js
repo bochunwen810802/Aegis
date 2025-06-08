@@ -20,39 +20,10 @@ const NetworkSvg = styled.svg`
   }
 `;
 
-const ControlPanel = styled.div`
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: ${props => props.theme.secondary};
-  border: 1px solid ${props => props.theme.border};
-  border-radius: 8px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  z-index: 100;
-`;
-
-const ControlButton = styled.button`
-  background: ${props => props.theme.accent};
-  border: none;
-  color: ${props => props.theme.text};
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: #667eea;
-  }
-`;
-
 const LegendPanel = styled.div`
   position: absolute;
-  top: 20px;
-  right: 20px;
+  bottom: 20px;
+  left: 20px;
   background: ${props => props.theme.secondary};
   border: 1px solid ${props => props.theme.border};
   border-radius: 8px;
@@ -124,7 +95,6 @@ function GraphNetwork({ data }) {
   const svgRef = useRef();
   const tooltipRef = useRef();
   const [selectedNode, setSelectedNode] = useState(null);
-  const [zoomTransform, setZoomTransform] = useState(d3.zoomIdentity);
 
   useEffect(() => {
     if (!data || !data.nodes || !data.links) return;
@@ -144,7 +114,6 @@ function GraphNetwork({ data }) {
       .scaleExtent([0.1, 4])
       .on("zoom", (event) => {
         container.attr("transform", event.transform);
-        setZoomTransform(event.transform);
       });
 
     svg.call(zoom);
@@ -342,30 +311,6 @@ function GraphNetwork({ data }) {
     }
   };
 
-  const handleReset = () => {
-    const svg = d3.select(svgRef.current);
-    svg.transition().duration(750).call(
-      d3.zoom().transform,
-      d3.zoomIdentity
-    );
-  };
-
-  const handleZoomIn = () => {
-    const svg = d3.select(svgRef.current);
-    svg.transition().duration(300).call(
-      d3.zoom().scaleBy,
-      1.5
-    );
-  };
-
-  const handleZoomOut = () => {
-    const svg = d3.select(svgRef.current);
-    svg.transition().duration(300).call(
-      d3.zoom().scaleBy,
-      1 / 1.5
-    );
-  };
-
   if (!data) {
     return (
       <GraphContainer>
@@ -385,12 +330,6 @@ function GraphNetwork({ data }) {
   return (
     <GraphContainer>
       <NetworkSvg ref={svgRef} />
-      
-      <ControlPanel>
-        <ControlButton onClick={handleReset}>重置視圖</ControlButton>
-        <ControlButton onClick={handleZoomIn}>放大</ControlButton>
-        <ControlButton onClick={handleZoomOut}>縮小</ControlButton>
-      </ControlPanel>
 
       <LegendPanel>
         <LegendTitle>圖例</LegendTitle>

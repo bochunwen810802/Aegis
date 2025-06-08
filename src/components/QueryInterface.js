@@ -5,23 +5,33 @@ const QueryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  justify-content: flex-start;
+  min-height: 100%;
   padding: 2rem;
   background: ${props => props.theme.primary};
+  overflow-y: auto;
+  
+  @media (max-height: 800px) {
+    justify-content: flex-start;
+    padding: 1rem;
+  }
 `;
 
 const WelcomeSection = styled.div`
   text-align: center;
   margin-bottom: 3rem;
   max-width: 800px;
+  
+  @media (max-height: 800px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const MainTitle = styled.h1`
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -38,6 +48,10 @@ const SearchSection = styled.div`
   width: 100%;
   max-width: 700px;
   margin-bottom: 3rem;
+  
+  @media (max-height: 800px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -50,8 +64,8 @@ const SearchContainer = styled.div`
   transition: all 0.3s ease;
   
   &:focus-within {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
   }
 `;
 
@@ -70,7 +84,7 @@ const SearchInput = styled.input`
 `;
 
 const SearchButton = styled.button`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   border: none;
   color: white;
   padding: 0.75rem 2rem;
@@ -81,7 +95,7 @@ const SearchButton = styled.button`
   
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
   }
   
   &:disabled {
@@ -93,6 +107,7 @@ const SearchButton = styled.button`
 const ExamplesSection = styled.div`
   width: 100%;
   max-width: 800px;
+  flex-shrink: 0;
 `;
 
 const ExamplesTitle = styled.h3`
@@ -117,9 +132,9 @@ const ExampleCard = styled.div`
   transition: all 0.3s ease;
   
   &:hover {
-    border-color: #667eea;
+    border-color: #3498db;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
   }
 `;
 
@@ -151,7 +166,7 @@ const Spinner = styled.div`
   width: 16px;
   height: 16px;
   border: 2px solid ${props => props.theme.border};
-  border-top: 2px solid #667eea;
+  border-top: 2px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const PanelContainer = styled.div`
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: ${props => props.position.y}px;
+  left: ${props => props.position.x}px;
   width: 400px;
   max-height: 80vh;
   background: ${props => props.theme.secondary};
@@ -15,6 +15,7 @@ const PanelContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  cursor: ${props => props.isDragging ? 'grabbing' : 'default'};
   
   ${props => props.isMinimized && `
     height: 60px;
@@ -27,7 +28,12 @@ const PanelHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: ${props => props.clickable ? 'pointer' : 'default'};
+  cursor: grab;
+  user-select: none;
+  
+  &:active {
+    cursor: grabbing;
+  }
 `;
 
 const PanelTitle = styled.h3`
@@ -35,6 +41,7 @@ const PanelTitle = styled.h3`
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
+  pointer-events: none;
 `;
 
 const PanelControls = styled.div`
@@ -69,7 +76,7 @@ const QuerySection = styled.div`
   padding: 1rem;
   background: ${props => props.theme.primary};
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #3498db;
 `;
 
 const QueryText = styled.p`
@@ -235,12 +242,12 @@ const ActionButton = styled.button`
   transition: all 0.3s ease;
   
   &.primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
     
     &:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
     }
   }
   
@@ -251,13 +258,79 @@ const ActionButton = styled.button`
     
     &:hover {
       color: ${props => props.theme.text};
-      border-color: #667eea;
+      border-color: #3498db;
     }
   }
 `;
 
 function FloatingQueryPanel({ query, result, onNewQuery }) {
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ x: window.innerWidth - 440, y: 20 }); // 預設位置
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const panelRef = useRef(null);
+
+  // 處理拖拽開始
+  const handleMouseDown = (e) => {
+    if (e.target.closest('.panel-controls')) return; // 避免控制按鈕觸發拖拽
+    
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    });
+  };
+
+  // 處理拖拽移動
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+
+    const newX = e.clientX - dragStart.x;
+    const newY = e.clientY - dragStart.y;
+
+    // 限制面板在視窗範圍內
+    const maxX = window.innerWidth - 400; // 面板寬度
+    const maxY = window.innerHeight - 100; // 最小高度
+
+    const boundedX = Math.max(0, Math.min(newX, maxX));
+    const boundedY = Math.max(0, Math.min(newY, maxY));
+
+    setPosition({ x: boundedX, y: boundedY });
+  };
+
+  // 處理拖拽結束
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // 添加全局事件監聽器
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart]);
+
+  // 響應視窗大小變化
+  useEffect(() => {
+    const handleResize = () => {
+      const maxX = window.innerWidth - 400;
+      const maxY = window.innerHeight - 100;
+      
+      setPosition(prev => ({
+        x: Math.min(prev.x, maxX),
+        y: Math.min(prev.y, maxY)
+      }));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const getRiskLevelLabel = (level) => {
     const labels = {
@@ -277,13 +350,17 @@ function FloatingQueryPanel({ query, result, onNewQuery }) {
   };
 
   return (
-    <PanelContainer isMinimized={isMinimized}>
+    <PanelContainer 
+      ref={panelRef}
+      isMinimized={isMinimized}
+      isDragging={isDragging}
+      position={position}
+    >
       <PanelHeader 
-        clickable={true} 
-        onClick={() => setIsMinimized(!isMinimized)}
+        onMouseDown={handleMouseDown}
       >
         <PanelTitle>風險分析報告</PanelTitle>
-        <PanelControls>
+        <PanelControls className="panel-controls">
           <ControlButton onClick={() => setIsMinimized(!isMinimized)}>
             {isMinimized ? '▲' : '▼'}
           </ControlButton>

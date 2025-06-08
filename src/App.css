@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', 'Oxygen',
@@ -12,7 +17,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #1a1a2e;
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a2332 50%, #0f1419 100%);
   color: #ffffff;
   overflow: hidden;
 }
@@ -27,21 +32,21 @@ code {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: #0a0e1a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: #34495e;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+  background: #5d6d7e;
 }
 
 /* 選擇文本顏色 */
 ::selection {
-  background: rgba(102, 126, 234, 0.3);
+  background: rgba(52, 152, 219, 0.3);
   color: #ffffff;
 }
 
@@ -85,6 +90,23 @@ code {
 }
 
 /* 響應式設計 */
+@media (max-width: 1440px) {
+  body {
+    overflow: auto;
+  }
+  
+  #root {
+    overflow: auto;
+  }
+  
+  .floating-panel {
+    width: calc(100vw - 40px);
+    max-width: 400px;
+    right: 20px;
+    left: auto;
+  }
+}
+
 @media (max-width: 768px) {
   .floating-panel {
     width: calc(100vw - 40px);
@@ -105,6 +127,12 @@ code {
   }
 }
 
+/* 確保容器正確適應螢幕 */
+.App {
+  width: 100vw;
+  height: 100vh;
+}
+
 /* 工具提示樣式 */
 .tooltip {
   position: absolute;
@@ -113,7 +141,7 @@ code {
   font-size: 12px;
   background: rgba(0, 0, 0, 0.8);
   color: white;
-  border: 1px solid #333;
+  border: 1px solid #34495e;
   border-radius: 4px;
   pointer-events: none;
   z-index: 1000;
@@ -131,7 +159,7 @@ code {
 }
 
 .node.selected {
-  stroke: #667eea;
+  stroke: #3498db;
   stroke-width: 4px;
 }
 
@@ -142,7 +170,7 @@ code {
 
 .link:hover {
   stroke-width: 3px;
-  stroke: #667eea;
+  stroke: #3498db;
 }
 
 /* 標籤樣式 */
@@ -165,13 +193,13 @@ code {
   height: 20px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #667eea;
+  border-top-color: #3498db;
   animation: spin 1s ease-in-out infinite;
 }
 
 /* 漸變背景 */
 .gradient-bg {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a2332 50%, #0f1419 100%);
 }
 
 /* 卡片陰影效果 */
@@ -190,12 +218,12 @@ code {
 
 .btn-hover-effect:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
 /* 文字漸變效果 */
 .text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

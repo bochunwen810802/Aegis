@@ -21,7 +21,7 @@ const Logo = styled.div`
 const LogoIcon = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ const ActionButtons = styled.div`
 `;
 
 const NewQueryButton = styled.button`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   border: none;
   color: white;
   padding: 0.75rem 1.5rem;
@@ -89,7 +89,7 @@ const NewQueryButton = styled.button`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
   }
 `;
 
