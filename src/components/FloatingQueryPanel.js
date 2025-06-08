@@ -79,16 +79,6 @@ const QuerySection = styled.div`
   border: 2px solid #2980b9;
 `;
 
-const QueryLabel = styled.span`
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-`;
-
 const QueryText = styled.p`
   color: #ffffff;
   margin: 0;
@@ -440,8 +430,8 @@ function FloatingQueryPanel({ query, result, onNewQuery }) {
       </PanelHeader>
 
       <PanelContent isMinimized={isMinimized}>
+        <SectionTitle>查詢問題</SectionTitle>
         <QuerySection>
-          <QueryLabel>查詢問題</QueryLabel>
           <QueryText>{query}</QueryText>
         </QuerySection>
 
@@ -487,7 +477,14 @@ function FloatingQueryPanel({ query, result, onNewQuery }) {
         <DataSourceSection>
           <SourceSectionTitle>各資料源查詢結果</SourceSectionTitle>
           <FindingsList>
-            {result.findings.map((finding, index) => (
+            {result.findings
+              .sort((a, b) => {
+                // 'found' 排在前面, 'clear' 排在後面
+                if (a.status === 'found' && b.status === 'clear') return -1;
+                if (a.status === 'clear' && b.status === 'found') return 1;
+                return 0;
+              })
+              .map((finding, index) => (
               <FindingItem key={index} status={finding.status}>
                 <FindingHeader>
                   <FindingSource>{finding.source}</FindingSource>
