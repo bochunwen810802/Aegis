@@ -31,7 +31,7 @@ const MainTitle = styled.h1`
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  background:linear-gradient(170deg, #cbd0d7 0%, #3e9bd9 100% 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
