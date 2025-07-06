@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Aegis/static/css/main.43808529.css",
+    "main.js": "/Aegis/static/js/main.3bb802a0.js",
+    "static/js/453.fd300c67.chunk.js": "/Aegis/static/js/453.fd300c67.chunk.js",
+    "index.html": "/Aegis/index.html",
+    "main.43808529.css.map": "/Aegis/static/css/main.43808529.css.map",
+    "main.3bb802a0.js.map": "/Aegis/static/js/main.3bb802a0.js.map",
+    "453.fd300c67.chunk.js.map": "/Aegis/static/js/453.fd300c67.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43808529.css",
+    "static/js/main.3bb802a0.js"
+  ]
+}
